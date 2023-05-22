@@ -1,5 +1,7 @@
 package com.example.koutapp;
 
+import static android.content.ContentValues.TAG;
+
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -7,6 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,10 +19,17 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.util.HashMap;
+import java.util.Map;
 
 
 public class SignupTabFragment extends Fragment {
@@ -27,6 +37,8 @@ public class SignupTabFragment extends Fragment {
     ProgressBar progressBar;
     Button button;
     FirebaseAuth mAuth;
+    FirebaseFirestore fstore;
+    String userID;
 
     @Override
     public void onStart() {
@@ -51,6 +63,7 @@ public class SignupTabFragment extends Fragment {
         progressBar = view.findViewById(R.id.progressBar);
         button = view.findViewById(R.id.signup_button);
         mAuth = FirebaseAuth.getInstance();
+        fstore = FirebaseFirestore.getInstance();
 
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -73,6 +86,23 @@ public class SignupTabFragment extends Fragment {
                                 if (task.isSuccessful()) {
                                     Toast.makeText(requireContext(), "Account created",
                                             Toast.LENGTH_SHORT).show();
+                                    userID = mAuth.getCurrentUser().getUid();
+                                    DocumentReference documentReference = fstore.collection("users").document(userID);
+                                    Map<String,Object> user = new HashMap<>();
+                                    user.put("mailId",mailid);
+                                    user.put("password",pass);
+
+                                    documentReference.set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                        @Override
+                                        public void onSuccess(Void unused) {
+                                            Log.d(TAG, "onSuccess: account created for userid" + userID);
+                                        }
+                                    }).addOnFailureListener(new OnFailureListener() {
+                                        @Override
+                                        public void onFailure(@NonNull Exception e) {
+                                            Log.d(TAG, "onFailure: "+ e.toString());
+                                        }
+                                    });
 
                                 } else {
                                     // If sign in fails, display a message to the user.

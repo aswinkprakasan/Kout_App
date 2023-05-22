@@ -37,7 +37,6 @@ public class LoginTabFragment extends Fragment {
         if(currentUser != null){
             Intent intent = new Intent(getActivity(), DashboardActivity.class);
             startActivity(intent);
-            requireActivity().finish();
         }
     }
 
@@ -77,7 +76,6 @@ public class LoginTabFragment extends Fragment {
                                             Toast.LENGTH_SHORT).show();
                                     Intent intent = new Intent(getActivity(), DashboardActivity.class);
                                     startActivity(intent);
-                                    requireActivity().finish();
 
                                 } else {
                                     Toast.makeText(requireContext(), "Authentication failed.",
