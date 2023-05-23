@@ -1,18 +1,82 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".HomeFragment">
+    tools:context=".HomeFragment"
+    tools:ignore="HardcodedText">
 
-    <!-- TODO: Update blank fragment layout -->
+    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/add_fab"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginBottom="16dp"
+        android:layout_marginEnd="16dp"
+        android:backgroundTint="@color/lavender"
+        android:text="Actions"
+        android:gravity="end"
+        app:icon="@drawable/add"/>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/scan_fab"
+        app:layout_constraintBottom_toTopOf="@+id/add_fab"
+        app:layout_constraintEnd_toEndOf="@id/add_fab"
+        android:layout_marginBottom="24dp"
+        android:backgroundTint="@color/lavender"
+        android:src="@drawable/scanner"
+        app:fabSize="normal"
+        android:contentDescription="@string/app_name" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/scan_text"
+        android:text="Scan Document"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintBottom_toBottomOf="@id/scan_fab"
+        app:layout_constraintEnd_toStartOf="@id/scan_fab"
+        app:layout_constraintTop_toTopOf="@id/scan_fab"
+        android:textColor="@color/black"/>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/quote_fab"
+        app:layout_constraintBottom_toTopOf="@+id/scan_fab"
+        app:layout_constraintEnd_toEndOf="@id/scan_fab"
+        app:layout_constraintStart_toStartOf="@id/scan_fab"
+        android:layout_marginBottom="24dp"
+        android:backgroundTint="@color/lavender"
+        android:src="@drawable/quote"
+        app:fabSize="normal"
+        android:contentDescription="@string/app_name" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/quote_text"
+        android:text="Add Quote"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintBottom_toBottomOf="@id/quote_fab"
+        app:layout_constraintEnd_toStartOf="@id/quote_fab"
+        app:layout_constraintTop_toTopOf="@id/quote_fab"
+        android:textColor="@color/black"/>
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Home Fragment"
+        android:textColor="@color/lavender"
         android:textSize="30sp"
-        android:layout_centerInParent="true"
-        android:textColor="@color/lavender"/>
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-</RelativeLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

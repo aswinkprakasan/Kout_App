@@ -8,6 +8,7 @@
     android:id="@+id/drawer_layout"
     android:fitsSystemWindows="true"
     tools:openDrawer="start"
+    tools:ignore="HardcodedText"
     tools:context=".MainActivity">
 
     <LinearLayout
@@ -41,4 +42,11 @@
         app:itemIconTint="@color/poly_green"
         app:itemTextColor="@color/poly_green"/>
 
+
+
+
+
+
+
 </androidx.drawerlayout.widget.DrawerLayout>
+
