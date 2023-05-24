@@ -16,7 +16,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginBottom="16dp"
         android:layout_marginEnd="16dp"
-        android:backgroundTint="@color/lavender"
+        app:backgroundTint="@color/lavender"
         android:text="Actions"
         android:gravity="end"
         app:icon="@drawable/add"/>
@@ -28,7 +28,7 @@
         app:layout_constraintBottom_toTopOf="@+id/add_fab"
         app:layout_constraintEnd_toEndOf="@id/add_fab"
         android:layout_marginBottom="24dp"
-        android:backgroundTint="@color/lavender"
+        app:backgroundTint="@color/lavender"
         android:src="@drawable/scanner"
         app:fabSize="normal"
         android:contentDescription="@string/app_name" />
@@ -52,7 +52,7 @@
         app:layout_constraintEnd_toEndOf="@id/scan_fab"
         app:layout_constraintStart_toStartOf="@id/scan_fab"
         android:layout_marginBottom="24dp"
-        android:backgroundTint="@color/lavender"
+        app:backgroundTint="@color/lavender"
         android:src="@drawable/quote"
         app:fabSize="normal"
         android:contentDescription="@string/app_name" />

@@ -74,43 +74,43 @@ public class SignupTabFragment extends Fragment {
                 pass = String.valueOf(password.getText());
                 repass = String.valueOf(repassword.getText());
 
-                if (TextUtils.isEmpty(mailid) || TextUtils.isEmpty(pass) || TextUtils.isEmpty(repass)){
+                if (TextUtils.isEmpty(mailid) || TextUtils.isEmpty(pass) || TextUtils.isEmpty(repass)) {
                     Toast.makeText(getActivity(), "don't leave the blank empty", Toast.LENGTH_SHORT).show();
                 }
+                else {
 
-                mAuth.createUserWithEmailAndPassword(mailid, pass)
-                        .addOnCompleteListener(requireActivity(), new OnCompleteListener<AuthResult>() {
-                            @Override
-                            public void onComplete(@NonNull Task<AuthResult> task) {
-                                progressBar.setVisibility(View.GONE);
-                                if (task.isSuccessful()) {
-                                    Toast.makeText(requireContext(), "Account created",
-                                            Toast.LENGTH_SHORT).show();
-                                    userID = mAuth.getCurrentUser().getUid();
-                                    DocumentReference documentReference = fstore.collection("users").document(userID);
-                                    Map<String,Object> user = new HashMap<>();
-                                    user.put("mailId",mailid);
-                                    user.put("password",pass);
+                    mAuth.createUserWithEmailAndPassword(mailid, pass).addOnCompleteListener(requireActivity(), new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                            progressBar.setVisibility(View.GONE);
+                            if (task.isSuccessful()) {
+                                Toast.makeText(requireContext(), "Account created", Toast.LENGTH_SHORT).show();
+                                userID = mAuth.getCurrentUser().getUid();
+                                DocumentReference documentReference = fstore.collection("users").document(userID);
+                                Map<String, Object> user = new HashMap<>();
+                                user.put("mailId", mailid);
+                                user.put("password", pass);
 
-                                    documentReference.set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
-                                        @Override
-                                        public void onSuccess(Void unused) {
-                                            Log.d(TAG, "onSuccess: account created for userid" + userID);
-                                        }
-                                    }).addOnFailureListener(new OnFailureListener() {
-                                        @Override
-                                        public void onFailure(@NonNull Exception e) {
-                                            Log.d(TAG, "onFailure: "+ e.toString());
-                                        }
-                                    });
+                                documentReference.set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    @Override
+                                    public void onSuccess(Void unused) {
+                                        Log.d(TAG, "onSuccess: account created for userid" + userID);
+                                    }
+                                }).addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception e) {
+                                        Log.d(TAG, "onFailure: " + e.toString());
+                                    }
+                                });
 
-                                } else {
-                                    // If sign in fails, display a message to the user.
-                                    Toast.makeText(requireContext(), "Authentication failed.",
-                                            Toast.LENGTH_SHORT).show();
-                                }
+                            } else {
+                                // If sign in fails, display a message to the user.
+                                Toast.makeText(requireContext(), "Authentication failed.",
+                                        Toast.LENGTH_SHORT).show();
                             }
-                        });
+                        }
+                    });
+                }
             }
         });
         return view;
