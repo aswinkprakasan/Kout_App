@@ -32,6 +32,22 @@
         android:src="@drawable/scanner"
         app:fabSize="normal"
         android:contentDescription="@string/app_name" />
+    <EditText
+        android:id="@+id/recText"
+        android:layout_width="300dp"
+        android:layout_height="60dp"
+        android:layout_gravity="center"
+        android:background="@drawable/edittext_bg"
+        android:drawablePadding="8dp"
+
+        android:hint="Recognised text appear hear"
+        android:padding="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.163" />
 
     <TextView
         android:layout_width="wrap_content"
