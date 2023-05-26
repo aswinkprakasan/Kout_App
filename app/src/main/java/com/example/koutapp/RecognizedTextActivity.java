@@ -55,13 +55,8 @@ public class RecognizedTextActivity extends AppCompatActivity {
 
     private ProgressDialog progressDialog;
 
-//    EditText recText;
-//    Button click;
-//    Uri imageUri;
-//
     private TextRecognizer textRecognizer;
-//
-//    ActivityResultLauncher<Intent> launcher;
+
    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -99,22 +94,27 @@ public class RecognizedTextActivity extends AppCompatActivity {
             }
         });
 
-//        recText = findViewById(R.id.recText);
-//        click = findViewById(R.id.btn_scan);
 
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
         bottomNavigationView.setOnItemSelectedListener(item -> {
             switch (item.getItemId()) {
                 case R.id.clear:
-                    Toast.makeText(this, "hai", Toast.LENGTH_SHORT).show();
+                    String text = recText.getText().toString();
+                    if (text.isEmpty()){
+                        Toast.makeText(this, "There is no text to clear", Toast.LENGTH_SHORT).show();
+                    }
+                    else {
+                        recText.setText("");
+                        imageUri = null;
+                    }
                     return true;
                 case R.id.scan:
 
-                    Toast.makeText(this, "haiscan", Toast.LENGTH_SHORT).show();
                     // Handle dashboard item click
                     return true;
                 case R.id.copy:
+
                     // Handle notifications item click
                     return true;
                 default:
@@ -122,35 +122,6 @@ public class RecognizedTextActivity extends AppCompatActivity {
             }
         });
 
-//        scanBtn.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                ImagePicker.with(RecognizedTextActivity.this)
-//                        .crop()	    			//Crop image(Optional), Check Customization for more option
-//                        .compress(1024)			//Final image size will be less than 1 MB(Optional)
-//                        .maxResultSize(1080, 1080)	//Final image resolution will be less than 1080 x 1080(Optional)
-//                        .start();
-//                Intent intent = new Intent(Intent.ACTION_PICK);
-//                launcher.launch(intent);
-//            }
-//        });
-//        launcher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
-//                new ActivityResultCallback<ActivityResult>() {
-//                    @Override
-//                    public void onActivityResult(ActivityResult result) {
-//                        if (result.getResultCode() == Activity.RESULT_OK){
-//                            Intent data = result.getData();
-//                            assert data != null;
-//                            imageUri = data.getData();
-//                            Toast.makeText(RecognizedTextActivity.this, "image selected", Toast.LENGTH_SHORT).show();
-//                            recogniseText();
-//                            Log.d("Launcher45", "onActivityResult: working");
-//                        }
-//                        else {
-//                            Toast.makeText(RecognizedTextActivity.this, "Cancelled", Toast.LENGTH_SHORT).show();
-//                        }
-//                    }
-//                });
 
 
     }
@@ -241,6 +212,7 @@ public class RecognizedTextActivity extends AppCompatActivity {
                         Intent data = result.getData();
                         imageUri = data.getData();
                         Log.d(TAG, "onActivityResult: imageuri"+imageUri);
+                        Toast.makeText(RecognizedTextActivity.this, "Image selected from gallery", Toast.LENGTH_SHORT).show();
                     }
                     else {
                         Log.d(TAG, "onActivityResult: cancelled");
@@ -345,32 +317,5 @@ public class RecognizedTextActivity extends AppCompatActivity {
     }
 
 
-    //    private void recogniseText() {
-//        if (imageUri != null){
-//            try {
-//                Log.d("recT", "recogniseText: ");
-//                InputImage inputImage = InputImage.fromFilePath(RecognizedTextActivity.this,imageUri);
-//                Task<Text> result = textRecognizer.process(inputImage).addOnSuccessListener(new OnSuccessListener<Text>() {
-//                    @Override
-//                    public void onSuccess(Text text) {
-//
-//                        String recognisedText = text.getText();
-//                        recText.setText(recognisedText);
-////                        Toast.makeText(RecognizedTextActivity.this, "hmmmmm", Toast.LENGTH_SHORT).show();
-//                        Log.d("RecognizedTextActivity", "Recognized Text: " + recognisedText);
-//
-//
-//                    }
-//                }).addOnFailureListener(new OnFailureListener() {
-//                    @Override
-//                    public void onFailure(@NonNull Exception e) {
-//                        Toast.makeText(RecognizedTextActivity.this, "e.getMessage()", Toast.LENGTH_SHORT).show();
-//                    }
-//                });
-//
-//            } catch (IOException e) {
-//                throw new RuntimeException(e);
-//            }
-//        }
-//    }
+
 }

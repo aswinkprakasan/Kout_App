@@ -6,8 +6,8 @@
         android:title="Clear" />
     <item
         android:id="@+id/scan"
-        android:icon="@drawable/scanner"
-        android:title="Scan" />
+        android:title=""
+        android:enabled="false"/>
     <item
         android:id="@+id/copy"
         android:icon="@drawable/baseline_content_copy_24"
