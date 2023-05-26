@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 
+import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
@@ -13,6 +14,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,6 +23,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.github.dhaval2404.imagepicker.ImagePicker;
+import com.github.dhaval2404.imagepicker.ImagePickerActivity;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -43,8 +46,12 @@ public class HomeFragment extends Fragment {
     TextView scanText, quoteText;
     EditText recText;
     Boolean isAllFABVisible;
-    Uri imageuri;
-    TextRecognizer textRecognizer;
+//    Uri imageUri;
+//
+//    TextRecognizer textRecognizer;
+//
+//    ActivityResultLauncher<Intent> launcher;
+
 
 
     @Override
@@ -59,8 +66,8 @@ public class HomeFragment extends Fragment {
         scanText = view.findViewById(R.id.scan_text);
         quoteText = view.findViewById(R.id.quote_text);
 
-        recText = view.findViewById(R.id.recText);
-        textRecognizer = TextRecognition.getClient(TextRecognizerOptions.DEFAULT_OPTIONS);
+//        recText = view.findViewById(R.id.recText);
+//        textRecognizer = TextRecognition.getClient(TextRecognizerOptions.DEFAULT_OPTIONS);
 
         scanFab.setVisibility(View.GONE);
         quoteFab.setVisibility(View.GONE);
@@ -70,32 +77,24 @@ public class HomeFragment extends Fragment {
         isAllFABVisible = false;
 
 
-//        ActivityResultLauncher<String> launcher = registerForActivityResult(new ActivityResultContracts.GetContent(), new ActivityResultCallback<Uri>() {
-//
-//            @Override
-//            public void onActivityResult(Uri result) {
-//
-//            }
-//        });
-//        ActivityResultLauncher<Intent> launcher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
-//            if (result.getResultCode() == Activity.RESULT_OK) {
-//                Intent data = result.getData();
-//
-//                if (data != null) {
-//                    imageuri = data.getData();
-//
-//                    Toast.makeText(requireContext(), "Image selected", Toast.LENGTH_SHORT).show();
-//
-//                    recogniseText();
-//                }
-//            } else {
-//                Toast.makeText(requireContext(), "Image not selected", Toast.LENGTH_SHORT).show();
-//            }
-//        });
-//       Intent intent = new Intent(getActivity(), RecognizedTextActivity.class);
-//        intent.putExtra("Key",recognisedText);
-//        launcher.launch(intent);
 
+
+//        launcher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
+//                new ActivityResultCallback<ActivityResult>() {
+//                    @Override
+//                    public void onActivityResult(ActivityResult result) {
+//                        if (result.getResultCode() == Activity.RESULT_OK){
+//                            Intent data = result.getData();
+//                            assert data != null;
+//                            imageUri = data.getData();
+//                            Toast.makeText(getActivity(), "Image selected", Toast.LENGTH_SHORT).show();
+//                            recogniseText();
+//                        }
+//                        else {
+//                            Toast.makeText(getActivity(), "Cancelled", Toast.LENGTH_SHORT).show();
+//                        }
+//                    }
+//                });
 
         addFab.shrink();
 
@@ -129,13 +128,18 @@ public class HomeFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 Toast.makeText(getActivity(), "Scanner Opened", Toast.LENGTH_SHORT).show();
-                ImagePicker.with(requireActivity())
-                        .crop()	    			//Crop image(Optional), Check Customization for more option
-                        .compress(1024)			//Final image size will be less than 1 MB(Optional)
-                        .maxResultSize(1080, 1080)	//Final image resolution will be less than 1080 x 1080(Optional)
-                        .start();
+
+//                ImagePicker.with(HomeFragment.this)
+//                        .crop()	    			//Crop image(Optional), Check Customization for more option
+//                        .compress(1024)			//Final image size will be less than 1 MB(Optional)
+//                        .maxResultSize(1080, 1080)	//Final image resolution will be less than 1080 x 1080(Optional)
+//                        .start();
+                Intent intent = new Intent(requireContext(),RecognizedTextActivity.class);
+                startActivity(intent);
             }
         });
+
+
 
 
 
@@ -150,10 +154,11 @@ public class HomeFragment extends Fragment {
         return view;
     }
 
+
 //    private void recogniseText() {
-//        if (imageuri != null){
+//        if (imageUri != null){
 //            try {
-//                InputImage inputImage = InputImage.fromFilePath(requireActivity(),imageuri);
+//                InputImage inputImage = InputImage.fromFilePath(requireActivity(),imageUri);
 //                Task<Text> result = textRecognizer.process(inputImage).addOnSuccessListener(new OnSuccessListener<Text>() {
 //                    @Override
 //                    public void onSuccess(Text text) {
@@ -165,7 +170,7 @@ public class HomeFragment extends Fragment {
 //                }).addOnFailureListener(new OnFailureListener() {
 //                    @Override
 //                    public void onFailure(@NonNull Exception e) {
-//                        Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(getActivity(), "e.getMessage()", Toast.LENGTH_SHORT).show();
 //                    }
 //                });
 //
@@ -174,4 +179,5 @@ public class HomeFragment extends Fragment {
 //            }
 //        }
 //    }
+
 }
