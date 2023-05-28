@@ -3,6 +3,7 @@ package com.example.koutapp;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -10,6 +11,8 @@ import androidx.fragment.app.Fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
@@ -32,17 +35,20 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
         setSupportActionBar(toolbar);
 
         mAuth = FirebaseAuth.getInstance();
-        drawerLayout = findViewById(R.id.drawer_layout);
-        NavigationView navigationView = findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
         user = mAuth.getCurrentUser();
 
+        drawerLayout = findViewById(R.id.drawer_layout);
+
+        NavigationView navigationView = findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
 
 
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.open_nav,
                 R.string.close_nav);
         drawerLayout.addDrawerListener(toggle);
+
         toggle.syncState();
+
         if (user == null){
             Intent intent = new Intent(getApplicationContext(), MainActivity.class);
             startActivity(intent);
@@ -53,10 +59,13 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
         }
     }
 
+
+
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case R.id.nav_home:
+
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new HomeFragment()).commit();
                 break;
 
@@ -74,8 +83,25 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
         }
 
         drawerLayout.closeDrawer(GravityCompat.START);
+
         return true;
     }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+
+        Log.d("Dashboard", "onCreateOptionsMenu: called");
+
+        getMenuInflater().inflate(R.menu.search_menu, menu);
+        MenuItem menuItem = menu.findItem(R.id.search);
+
+        SearchView searchView = (SearchView) menuItem.getActionView();
+        searchView.setQueryHint("Search here");
+
+        return super.onCreateOptionsMenu(menu);
+
+    }
+
 
     @Override
     public void onBackPressed() {

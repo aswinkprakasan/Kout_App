@@ -17,20 +17,25 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHeight_percent=".78"
         app:layout_constraintVertical_bias="1">
+
         <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/view_pager"
             android:layout_width="match_parent"
             android:layout_height="630dp"
-            android:id="@+id/view_pager"
-            app:layout_constraintVertical_bias="0"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
             android:background="@drawable/viewpager_bg"
-            app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"/>
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0" />
         <com.google.android.material.tabs.TabLayout
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:id="@+id/tab_layout"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
             app:layout_constraintVertical_bias="0"
             android:background="@drawable/tab_bg"
             app:layout_constraintTop_toTopOf="parent"
