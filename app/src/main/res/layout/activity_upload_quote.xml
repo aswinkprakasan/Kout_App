@@ -14,14 +14,15 @@
         android:background="@color/lavender"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
         android:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-        tools:ignore="MissingConstraints">
+        tools:ignore="MissingConstraints"
+        app:navigationIcon="?attr/homeAsUpIndicator">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Upload Quote"
-            android:textColor="@color/white"
-            android:textSize="25dp"/>
+<!--        <TextView-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="Upload Quote"-->
+<!--            android:textColor="@color/white"-->
+<!--            android:textSize="25dp"/>-->
     </androidx.appcompat.widget.Toolbar>
 
     <androidx.cardview.widget.CardView
@@ -87,13 +88,13 @@
             app:hintTextColor="#FF6429"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
-            android:layout_marginTop="150dp">
+            android:layout_marginTop="150dp"
+            >
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/author"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-
                 android:inputType="text"
                 android:textColor="@color/black" />
 
