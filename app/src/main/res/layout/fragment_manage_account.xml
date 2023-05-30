@@ -91,7 +91,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:text="Save"
-                android:id="@+id/saveButton"
+                android:id="@+id/save_button"
                 android:textSize="18sp"
                 android:layout_marginTop="20dp"
                 android:backgroundTint="@color/lavender"

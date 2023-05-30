@@ -5,12 +5,12 @@ import androidx.fragment.app.FragmentManager;
 import androidx.viewpager2.widget.ViewPager2;
 import android.os.Bundle;
 
-import com.example.signlogintab.ViewPagerAdapter;
+import com.example.koutapp.ViewPagerAdapter;
 import com.google.android.material.tabs.TabLayout;
 public class MainActivity extends AppCompatActivity {
     private TabLayout tabLayout;
     private ViewPager2 viewPager2;
-    private com.example.signlogintab.ViewPagerAdapter adapter;
+    private com.example.koutapp.ViewPagerAdapter adapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
