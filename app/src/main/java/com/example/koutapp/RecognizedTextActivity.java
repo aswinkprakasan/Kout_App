@@ -119,6 +119,16 @@ public class RecognizedTextActivity extends AppCompatActivity {
                     return true;
                 case R.id.copy:
 
+                    String rec = recText.getText().toString();
+                    if (!rec.isEmpty()){
+                        Intent intent = new Intent(this, UploadQuoteActivity.class);
+                        intent.putExtra("recognisedText", rec);
+                        startActivity(intent);
+                    }
+                    else{
+                        Toast.makeText(this, "Recognised text is empty", Toast.LENGTH_SHORT).show();
+                    }
+
                     // Handle notifications item click
                     return true;
                 default:
